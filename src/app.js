@@ -13,7 +13,7 @@ app.use('/public', express.static(path.join(path.resolve(), 'public')));
 
 app.use(
     cors({
-        origin: ["http://localhost:3000", "http://localhost:5173",],
+        origin: ["http://localhost:3000", "http://localhost:5173", "https://www.treadstoneis.co.uk"],
         methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
         credentials: true,
     })
