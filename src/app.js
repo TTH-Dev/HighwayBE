@@ -4,7 +4,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
 import router from "./routes.js";
 import AppError from "./utils/AppError.js";
-import errorHandler from "./utils/errorHandler.js";
+import errorHandler from "./utils/ErrorHandler.js";
 import path from "path";
 
 const app = express();
