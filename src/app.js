@@ -17,7 +17,7 @@ app.use(
         methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
         credentials: true,
     })
-);
+); 
 
 app.options("*", cors());
 app.use(express.json({ limit: "20mb" }));
