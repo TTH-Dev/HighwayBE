@@ -19,6 +19,8 @@ const adminSchema = new mongoose.Schema({
     type: String,
     default: "admin",
   },
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
 }, { timestamps: true });
 
 adminSchema.pre("save", async function (next) {
