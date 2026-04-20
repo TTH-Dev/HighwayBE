@@ -37,7 +37,7 @@ export const createBlog = catchAsync(async (req, res) => {
 
 
 export const getBlogs = catchAsync(async (req, res) => {
-  const { category, title, activityStatus } = req.query;
+  const { search, category, title, activityStatus } = req.query;
 
   const filter = {};
 
