@@ -4,8 +4,10 @@ const blogSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     slug: { type: String, unique: true },
+    subtitle: { type: String },
+    subcontent: { type: String },
     description: { type: String, required: true },
-    category: { type: String, required: true, enum: ["project", "aboutUs", "design", "newsEvents", "assetsManagement", "conditionSurveys", "NRSWAStreetWorks"] },
+    category: { type: String, required: true, enum: ["project", "aboutUs", "design", "newsEvents", "assetsManagement", "conditionSurveys", "NRSWAStreetWorks", "footer", "contact"] },
     displayInHomePage: { type: Boolean, default: null },
     featuredImage: {
       url: {
