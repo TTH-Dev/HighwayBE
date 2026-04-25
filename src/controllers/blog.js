@@ -86,27 +86,50 @@ export const updateBlog = catchAsync(async (req, res, next) => {
   if (!existingBlog) {
     return next(new AppError("Blog not found", 404));
   }
+let imageData = existingBlog.featuredImage;
 
-  let imageData = existingBlog.featuredImage;
+// ✅ DELETE IMAGE (when frontend sends featuredImage = null or "")
+if (
+  req.body.featuredImage === "null" ||
+  req.body.featuredImage === "" ||
+  req.body.featuredImage === null
+) {
+  if (existingBlog.featuredImage?.url) {
+    const oldPath = path.join(
+      path.resolve(),
+      "public",
+      existingBlog.featuredImage.url
+    );
 
-  if (req.file) {
-    if (existingBlog.featuredImage?.url) {
-      const oldPath = path.join(
-        path.resolve(),
-        "public",
-        existingBlog.featuredImage.url
-      );
-
-      if (fs.existsSync(oldPath)) {
-        fs.unlinkSync(oldPath);
-      }
+    if (fs.existsSync(oldPath)) {
+      fs.unlinkSync(oldPath);
     }
-
-    imageData = {
-      url: `/uploads/blogs/${req.file.filename}`,
-      mimeType: req.file.mimetype,
-    };
   }
+
+  imageData = null;
+}
+
+// ✅ REPLACE IMAGE
+else if (req.file) {
+  if (existingBlog.featuredImage?.url) {
+    const oldPath = path.join(
+      path.resolve(),
+      "public",
+      existingBlog.featuredImage.url
+    );
+
+    if (fs.existsSync(oldPath)) {
+      fs.unlinkSync(oldPath);
+    }
+  }
+
+  imageData = {
+    url: `/uploads/blogs/${req.file.filename}`,
+    mimeType: req.file.mimetype,
+  };
+}
+
+// else → keep old image
 
   const blog = await updateBlogService(req.params.id, {
     ...req.body,
